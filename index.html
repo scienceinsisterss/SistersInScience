@@ -7,7 +7,6 @@
     
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-    
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -25,10 +24,9 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        // React Hook'larını küresel tanımlardan alıyoruz
         const { useState } = React;
 
-        // --- SENİN VERİ YAPILARIN ---
+        // --- BİREBİR SENİN GENİŞLETİLMİŞ MOCK VERİ YAPIN ---
         const MOCK_TOPLULUK = [
           {
             id: "m1",
@@ -101,7 +99,7 @@
               { name: "MEF Ulusal Araştırma Projeleri Yarışması", rank: "Mansiyon / Teşvik Ödülü" }
             ],
             role: "Mentör",
-            bio: "İTÜ Yapay Zekâ Mühendisliği mezunuyum. Şu an derin öğrenme ve büyük veri analitiği üzerine yüksek lisans yapmaktayım. Akademik rapor yazım tekniklerinde destek olabilirim.",
+            bio: "İTÜ Yapay Zekâ Mühendisliği mezunuyum. Şu an derin öğrenme ve büyük veri analitiği üzerine yüksek lisans yapmaktayım. Academic rapor yazım tekniklerinde destek olabilirim.",
             impactScore: 720,
             avatar: "🧠",
             verified: true,
@@ -213,7 +211,7 @@
             id: "f1",
             title: "Samsung Solve for Tomorrow 2026",
             category: "Teknoloji ve Mühendislik",
-            desc: "14-19 yaş arası lise öğrencilerinin toplumsal sorunlara STEM odaklı yaratıcı çözümler üretmesini teşvik eden küresel tasarım odaklı düşünme yarışması.",
+            desc: "14-19 yaş arası lise öğrencilerinin toplumsal sorunlara STEM odaklı yaratıcı solutions üretmesini teşvik eden küresel tasarım odaklı düşünme yarışması.",
             deadline: "30 Eylül 2026",
             link: "https://www.solvefortomorrowturkiye.com",
             verified: true,
@@ -224,7 +222,7 @@
             awards: "Tasarım odaklı düşünme mentorluk eğitimleri, teknoloji hediye çekleri ve prestijli ulusal görünürlük.",
             missingCriteria: ["Özgeçmiş alanında 'Sürdürülebilirlik' etiketi doğrulanmamış.", "Aktif bir takım bulunamadı (Takım Kurucu sekmesinden takım arayabilirsiniz)."],
             pastMentors: ["Selin Yılmaz"],
-            similarOpportunities: ["TEKNOFEST Eğitim Teknolojileri Yarışması", "TÜBİTAK 2204-D İklim Değişikliği Araşan Projeleri"]
+            similarOpportunities: ["TEKNOFEST Eğitim Teknolojileri Yarışması", "TÜBİTAK 2204-D Lise Öğrencileri İklim Değişikliği Araştırma Projeleri"]
           },
           {
             id: "f2",
@@ -253,7 +251,7 @@
             verified: true,
             matchKeywords: ["Yazılım", "Yapay Zekâ", "Robotik", "Sağlık Teknolojileri"],
             eligibility: "İlkokul, ortaokul, lise, mezun ve üniversite seviyesindeki tüm öğrenciler.",
-            conditions: "Engellilik, sağlık, afet yönetimi öğrenim başlıklarında otonom çözümler sunulmalıdır.",
+            conditions: "Engellilik, sağlık, afet yönetimi ogrenim basliklarinda otonom çözümler sunulmalıdır.",
             documents: "Proje Ön Değerlendirme Raporu, Proje Detay Raporu, Prototip Tanıtım Videosu.",
             awards: "Derece alan takımlara büyük maddi ödüller, Teknofest Ankara/İstanbul stant alanı desteği ve T3 Girişim Ofisi mentorluğu.",
             missingCriteria: ["Takımınızda donanım tecrübesine sahip bir 'Geliştirici' eksik."],
@@ -356,7 +354,7 @@
           "Türkiye Finalisti", "Bölge Derecesi", "Okul Derecesi", "Mansiyon / Teşvik Ödülü"
         ];
 
-        // --- ANA UYGULAMA BİLEŞENİ ---
+        // --- ANA BİLEŞEN (BİREBİR SENİN YAZDIĞIN STATE VE FONKSİYONLAR) ---
         function App() {
           const [theme, setTheme] = useState('light');
           const [activeTab, setActiveTab] = useState('vizyon');
@@ -366,6 +364,7 @@
           const [studentGrade, setStudentGrade] = useState('10. Sınıf');
           const [studentCity, setStudentCity] = useState('Sivas');
           const [selectedInterests, setSelectedInterests] = useState(['Biyoloji', 'Sürdürülebilirlik']);
+          
           const [selectedExperiences, setSelectedExperiences] = useState([
             { name: "TÜBİTAK 2204-A Lise Öğrencileri Araştırma Projeleri Yarışması", rank: "Katılımcı" }
           ]);
@@ -414,7 +413,9 @@
             }
           };
 
-          const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+          const toggleTheme = () => {
+            setTheme(theme === 'light' ? 'dark' : 'light');
+          };
 
           const handleInterestToggle = (interest) => {
             if (selectedInterests.includes(interest)) {
@@ -435,7 +436,9 @@
 
           const handleRankChange = (contestName, newRank) => {
             setSelectedExperiences(selectedExperiences.map(e => {
-              if (e.name === contestName) return { ...e, rank: newRank };
+              if (e.name === contestName) {
+                return { ...e, rank: newRank };
+              }
               return e;
             }));
           };
@@ -481,6 +484,7 @@
             }
 
             const creatorLabel = `${studentName} (${studentGrade} - ${studentCity})`;
+
             const newTeam = {
               id: `t-${Date.now()}`,
               projectName: newProjName,
@@ -512,14 +516,18 @@
 
           const startChat = (partner) => {
             if (!partner) return;
-            const interestsString = partner.interests && Array.isArray(partner.interests) ? partner.interests.join(', ') : 'STEM Araştırmaları';
+            
+            const interestsString = partner.interests && Array.isArray(partner.interests) 
+              ? partner.interests.join(', ') 
+              : 'STEM Araştırmaları';
+
             const partnerEmail = partner.email || 'bilgi@sistersinscience.org';
 
             setChatPartner(partner);
             setMessages([
               { 
                 sender: 'partner', 
-                text: `Selam ${studentName || 'Akademik Yolcu'}! SİS Akademik Odasına hoş geldin. ${interestsString} alanlarındaki tecrübelerimi ve süreçlerimi seninle paylaşmaktan mutluluk duyarım. Güvenli dijital odamızda veya ${partnerEmail} üzerinden istediğin her akademik soruyu sorabilirsin!` 
+                text: `Selam ${studentName || 'Akademik Yolcu'}! SİS Akademik Odamız hoş geldin. ${interestsString} alanlarındaki tecrübelerimi ve süreçlerimi seninle paylaşmaktan mutluluk duyarım. Güvenli dijital odamızda veya ${partnerEmail} üzerinden istediğin her akademik soruyu sorabilirsin!` 
               }
             ]);
             setActiveTab('sohbet');
@@ -581,6 +589,7 @@
             ? MOCK_FIRSATLAR
             : MOCK_FIRSATLAR.filter(opp => opp.category === selectedRadarCategory);
 
+          // --- BİREBİR SENİN ORİJİNAL HTML ARAYÜZÜN ---
           return (
             <div className={`min-h-screen ${theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'} font-sans antialiased transition-colors duration-300`}>
               
@@ -601,25 +610,68 @@
                     </div>
                   </div>
 
-                  {/* Navigasyon Linkleri */}
+                  {/* Navigasyon Linkleri (Desktop) */}
                   <nav className="hidden lg:flex space-x-1 p-1 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                    <button onClick={() => setActiveTab('vizyon')} className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === 'vizyon' ? 'bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}`}>Akademik Vizyon & STEM</button>
-                    <button onClick={() => setActiveTab('simulator')} className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === 'simulator' ? 'bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}`}>SİS Profilim</button>
-                    <button onClick={() => setActiveTab('eslesme')} className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === 'eslesme' ? 'bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}`}>Akıllı Eşleşmeler {analysisRan && "✨"}</button>
-                    <button onClick={() => setActiveTab('radar')} className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === 'radar' ? 'bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}`}>Fırsat Radarı</button>
-                    <button onClick={() => setActiveTab('takim')} className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === 'takim' ? 'bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}`}>Takım Kurucu</button>
-                    <button onClick={() => setActiveTab('etki')} className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all relative ${activeTab === 'etki' ? 'bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}`}>Etki Profili <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-[8px] px-1.5 py-0.2 rounded-full font-bold">{userPoints}</span></button>
+                    <button
+                      onClick={() => setActiveTab('vizyon')}
+                      className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === 'vizyon' ? 'bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}`}
+                    >
+                      Akademik Vizyon & STEM
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('simulator')}
+                      className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === 'simulator' ? 'bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}`}
+                    >
+                      SİS Profilim
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('eslesme')}
+                      className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === 'eslesme' ? 'bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}`}
+                    >
+                      Akıllı Eşleşmeler {analysisRan && "✨"}
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('radar')}
+                      className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === 'radar' ? 'bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}`}
+                    >
+                      Fırsat Radarı
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('takim')}
+                      className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === 'takim' ? 'bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}`}
+                    >
+                      Takım Kurucu
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('etki')}
+                      className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all relative ${activeTab === 'etki' ? 'bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}`}
+                    >
+                      Etki Profilini Gör
+                      <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-[8px] px-1.5 py-0.2 rounded-full font-bold">
+                        {userPoints}
+                      </span>
+                    </button>
                   </nav>
 
-                  {/* Tema */}
+                  {/* Tema ve Güvenlik */}
                   <div className="flex items-center space-x-3">
-                    <button onClick={toggleTheme} className={`w-9 h-9 rounded-lg flex items-center justify-center border transition-all ${theme === 'dark' ? 'bg-slate-800 border-slate-700 text-amber-400' : 'bg-slate-100 border-slate-200 text-slate-600 hover:bg-slate-200'}`}>{theme === 'dark' ? '☀️' : '🌙'}</button>
-                    <span className="hidden md:flex text-[11px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-3 py-1.5 rounded-lg font-medium items-center"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>Doğrulanmış Havuz</span>
+                    <button
+                      onClick={toggleTheme}
+                      className={`w-9 h-9 rounded-lg flex items-center justify-center border transition-all ${theme === 'dark' ? 'bg-slate-800 border-slate-700 text-amber-400' : 'bg-slate-100 border-slate-200 text-slate-600 hover:bg-slate-200'}`}
+                      title="Temayı Değiştir"
+                    >
+                      {theme === 'dark' ? '☀️' : '🌙'}
+                    </button>
+                    <span className="hidden md:flex text-[11px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-3 py-1.5 rounded-lg font-medium items-center">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
+                      Doğrulanmış Havuz
+                    </span>
                   </div>
+
                 </div>
               </header>
 
-              {/* MOBIL NAV */}
+              {/* MOBIL MENÜ */}
               <div className={`lg:hidden flex overflow-x-auto whitespace-nowrap p-2 border-b gap-1 ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
                 <button onClick={() => setActiveTab('vizyon')} className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${activeTab === 'vizyon' ? 'bg-pink-600 text-white' : 'text-slate-400'}`}>Vizyon</button>
                 <button onClick={() => setActiveTab('simulator')} className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${activeTab === 'simulator' ? 'bg-pink-600 text-white' : 'text-slate-400'}`}>Profilim</button>
@@ -629,102 +681,238 @@
                 <button onClick={() => setActiveTab('etki')} className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${activeTab === 'etki' ? 'bg-pink-600 text-white' : 'text-slate-400'}`}>Etki ({userPoints})</button>
               </div>
 
-              {/* ANA İÇERİK */}
               <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                
-                {/* 1. VİZYON TAB */}
+
+                {/* 1. AKADEMİK VİZYON & STEM SEKME */}
                 {activeTab === 'vizyon' && (
                   <div className="space-y-10 animate-fadeIn">
+                    
+                    {/* Hero Bölümü */}
                     <div className="max-w-4xl mx-auto text-center py-10 space-y-6">
-                      <span className="text-[11px] font-bold text-pink-600 dark:text-pink-400 uppercase tracking-widest bg-pink-500/10 dark:bg-pink-500/20 px-3.5 py-1.5 rounded-full border border-pink-500/10">Eşit Haklar • Sürdürülebilir STEM Mentörlük Ekosistemi</span>
-                      <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Geleceğin Bilimini İnşa Eden <br /><span className="bg-gradient-to-r from-pink-500 to-indigo-500 bg-clip-text text-transparent">Kız Öğrenciler Bir Arada</span></h1>
-                      <p className={`text-base sm:text-lg max-w-2xl mx-auto leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>SİS (SistersInScience), kız öğrencilerin STEM alanlarında ihtiyaç duydukları doğrulanmış mentörlük, takım arkadaşı arayışı ve kişiselleştirilmiş fırsat radarına güvenli bir altyapıyla erişmelerini sağlayan bağımsız ed-tech projesidir.</p>
+                      <span className="text-[11px] font-bold text-pink-600 dark:text-pink-400 uppercase tracking-widest bg-pink-500/10 dark:bg-pink-500/20 px-3.5 py-1.5 rounded-full border border-pink-500/10 dark:border-pink-500/20">
+                        Eşit Haklar • Sürdürülebilir STEM Mentörlük Ekosistemi
+                      </span>
+                      <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-900'} leading-tight`}>
+                        Geleceğin Bilimini İnşa Eden <br />
+                        <span className="bg-gradient-to-r from-pink-500 to-indigo-500 bg-clip-text text-transparent">
+                          Kız Öğrenciler Bir Arada
+                        </span>
+                      </h1>
+                      <p className={`text-base sm:text-lg max-w-2xl mx-auto leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                        SİS (SistersInScience), kız öğrencilerin STEM (Bilim, Teknoloji, Mühendislik, Matematik) alanlarında ihtiyaç duydukları doğrulanmış mentörlük, takım arkadaşı arayışı ve kişiselleştirilmiş fırsat radarına güvenli bir altyapıyla erişmelerini sağlayan bağımsız ed-tech projesidir.
+                      </p>
                       <div className="flex justify-center space-x-3 pt-2">
-                        <button onClick={() => setActiveTab('simulator')} className="bg-pink-600 hover:bg-pink-500 text-white text-xs sm:text-sm font-semibold px-6 py-3 rounded-lg shadow-md transition-all">SİS Profilini Oluştur</button>
-                        <button onClick={() => setActiveTab('radar')} className={`text-xs sm:text-sm font-semibold px-6 py-3 rounded-lg transition-all border ${theme === 'dark' ? 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800' : 'bg-white text-slate-700 border-slate-200'}`}>Fırsatları İncele</button>
+                        <button
+                          onClick={() => setActiveTab('simulator')}
+                          className="bg-pink-600 hover:bg-pink-500 text-white text-xs sm:text-sm font-semibold px-6 py-3 rounded-lg shadow-md transition-all"
+                        >
+                          SİS Profilini Oluştur
+                        </button>
+                        <button
+                          onClick={() => setActiveTab('radar')}
+                          className={`text-xs sm:text-sm font-semibold px-6 py-3 rounded-lg transition-all border ${theme === 'dark' ? 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`}
+                        >
+                          Fırsatları İncele
+                        </button>
                       </div>
                     </div>
 
+                    {/* Platform Nasıl Çalışıyor? */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      
                       <div className={`p-6 rounded-xl border ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-slate-200'} space-y-3`}>
                         <div className="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-500 flex items-center justify-center font-bold text-lg">💡</div>
-                        <h3 className="text-base font-bold">Kişisel Yol Haritası</h3>
-                        <p className="text-xs sm:text-sm leading-relaxed text-slate-500">Öğrenci ve hedeflere göre SİS-AI rehberliğinde sürdürülebilir akademik yol haritaları oluşturulur.</p>
+                        <h3 className={`text-base font-bold ${theme === 'dark' ? 'text-slate-100' : 'text-slate-900'}`}>Kişisel Yol Haritası</h3>
+                        <p className={`text-xs sm:text-sm leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                          Öğrenciler ilgi alanlarını ve eğitim düzeylerini belirterek SİS-AI rehberliğinde kendi sürdürülebilir akademik yol haritalarını oluştururlar.
+                        </p>
                       </div>
+
                       <div className={`p-6 rounded-xl border ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-slate-200'} space-y-3`}>
                         <div className="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center font-bold text-lg">👥</div>
-                        <h3 className="text-base font-bold">Deneyim Odaklı Mentörlük</h3>
-                        <p className="text-xs sm:text-sm leading-relaxed text-slate-500">Bilgi aktarımını yaşa değil tecrübeye dayandırıyoruz. Akranların geçmiş TÜBİTAK/Teknofest derecelerini aktardığı bir ekosistemdir.</p>
+                        <h3 className={`text-base font-bold ${theme === 'dark' ? 'text-slate-100' : 'text-slate-900'}`}>Yaş Değil Deneyim Odaklı Mentörlük</h3>
+                        <p className={`text-xs sm:text-sm leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                          Bilgi aktarımını yaşa değil tecrübeye dayandırıyoruz. Akranların geçmiş TÜBİTAK/Teknofest derecelerini güvenle aktardığı bir ekosistem sunuyoruz.
+                        </p>
                       </div>
+
                       <div className={`p-6 rounded-xl border ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-slate-200'} space-y-3`}>
                         <div className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-lg">🛡️</div>
-                        <h3 className="text-base font-bold">Doğrulanmış Topluluk</h3>
-                        <p className="text-xs sm:text-sm leading-relaxed text-slate-500">Platforma girişler resmi öğrenci belgeleri kontrol edilerek yapılır, güvenli sohbet kalkanı kimliği korur.</p>
+                        <h3 className={`text-base font-bold ${theme === 'dark' ? 'text-slate-100' : 'text-slate-900'}`}>Doğrulanmış Topluluk</h3>
+                        <p className={`text-xs sm:text-sm leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                          Platforma girişler sadece resmi öğrenci belgeleri kontrol edilerek yapılır. Yapay zekâ sohbet kalkanı, kimlik güvenliğini en üst seviyede korur.
+                        </p>
+                      </div>
+
+                    </div>
+
+                    {/* STEM Matematiksel Modeli */}
+                    <div className={`p-8 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/30 border-slate-800' : 'bg-white border-slate-200'} space-y-6`}>
+                      <div className="max-w-3xl space-y-3">
+                        <h3 className={`text-lg sm:text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Eşleştirme Motorunun Arkasındaki Matematiksel Model</h3>
+                        <p className={`text-xs sm:text-sm leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                          SİS-AI, öğrencileri ve mentörleri eşleştirirken çok kriterli bir benzerlik optimizasyon algoritması kullanır. İlgili akademik matris modeli şu şekilde tanımlanmıştır:
+                        </p>
+                      </div>
+
+                      <div className={`py-4 px-6 rounded-xl font-mono text-center overflow-x-auto text-xs sm:text-sm ${theme === 'dark' ? 'bg-slate-950 text-pink-400' : 'bg-pink-50 text-pink-700'}`}>
+                        S(u, m) = w₁ · I(u, m) + w₂ · ΔE(u, m) - w₃ · G(u, m)
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-[11px] sm:text-xs">
+                        <div className="p-3 bg-slate-100 dark:bg-slate-900 rounded-lg">
+                          <strong className="text-pink-500">I(u, m):</strong> Öğrenci ve mentör arasındaki ilgi alanı benzerlik matrisi.
+                        </div>
+                        <div className="p-3 bg-slate-100 dark:bg-slate-900 rounded-lg">
+                          <strong className="text-pink-500">ΔE(u, m):</strong> Deneyim dereceleri arasındaki fark katsayısı.
+                        </div>
+                        <div className="p-3 bg-slate-100 dark:bg-slate-900 rounded-lg">
+                          <strong className="text-pink-500">G(u, m):</strong> Büyük şehirler dışı avantajı sağlayan coğrafi ağırlık.
+                        </div>
                       </div>
                     </div>
 
-                    <div className={`p-8 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/30 border-slate-800' : 'bg-white border-slate-200'} space-y-4`}>
-                      <h3 className="text-lg font-bold">Eşleştirme Motorunun Arkasındaki Matematiksel Model</h3>
-                      <p className="text-xs sm:text-sm text-slate-500">SİS-AI, öğrencileri ve mentörleri eşleştirirken çok kriterli bir benzerlik optimizasyon algoritması kullanır:</p>
-                      <div className={`py-4 px-6 rounded-xl font-mono text-center text-xs sm:text-sm ${theme === 'dark' ? 'bg-slate-950 text-pink-400' : 'bg-pink-50 text-pink-700'}`}>
-                        S(u, m) = w₁·I(u, m) + w₂·ΔE(u, m) - w₃·G(u, m)
-                      </div>
-                    </div>
                   </div>
                 )}
 
-                {/* 2. PROFİL SİMÜLATÖRÜ */}
+                {/* 2. SİS PROFİLİM */}
                 {activeTab === 'simulator' && (
                   <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
+                    
+                    <div className="text-center space-y-2">
+                      <h2 className={`text-2xl sm:text-3xl font-extrabold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>SİS Akademik Kimliğim</h2>
+                      <p className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                        Eğitim seviyenizi, akademik hedeflerinizi ve kazandığınız dereceleri girerek profilinizi oluşturun. Bilgileriniz SİS-AI ve diğer doğrulanmış öğrencilerle paylaşılacaktır.
+                      </p>
+                    </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+                      
+                      {/* Sol Sütun: Temel Formlar */}
                       <div className={`md:col-span-7 p-6 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'} space-y-6`}>
+                        
                         <div className="space-y-4 text-xs sm:text-sm">
+                          
+                          {/* İsim & Seviye */}
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                               <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Ad Soyad</label>
-                              <input type="text" value={studentName} onChange={(e) => setStudentName(e.target.value)} className={`w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-pink-500 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300'}`} />
+                              <input 
+                                type="text" 
+                                value={studentName} 
+                                onChange={(e) => setStudentName(e.target.value)}
+                                className={`w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-pink-500 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300 text-slate-800'}`}
+                              />
                             </div>
                             <div>
                               <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Eğitim Seviyesi</label>
-                              <select value={studentGrade} onChange={(e) => setStudentGrade(e.target.value)} className={`w-full border rounded-lg px-3 py-2 text-xs focus:outline-none ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300'}`}>
-                                <option>8. Sınıf</option><option>9. Sınıf</option><option>10. Sınıf</option><option>11. Sınıf</option><option>12. Sınıf</option><option>Üniversite 1. Sınıf</option>
+                              <select 
+                                value={studentGrade} 
+                                onChange={(e) => setStudentGrade(e.target.value)}
+                                className={`w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-pink-500 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300 text-slate-800'}`}
+                              >
+                                <option>8. Sınıf</option>
+                                <option>9. Sınıf</option>
+                                <option>10. Sınıf</option>
+                                <option>11. Sınıf</option>
+                                <option>12. Sınıf</option>
+                                <option>Üniversite Hazırlık</option>
+                                <option>Üniversite 1. Sınıf</option>
+                                <option>Üniversite Son Sınıf</option>
                               </select>
                             </div>
                           </div>
+
+                          {/* Şehir & Akademik E-Posta */}
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                               <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Şehir</label>
-                              <input type="text" value={studentCity} onChange={(e) => setStudentCity(e.target.value)} className={`w-full border rounded-lg px-3 py-2 text-xs ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300'}`} />
+                              <input 
+                                type="text" 
+                                value={studentCity} 
+                                onChange={(e) => setStudentCity(e.target.value)}
+                                className={`w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-pink-500 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300 text-slate-800'}`}
+                              />
                             </div>
                             <div>
-                              <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Akademik E-Posta</label>
-                              <input type="email" value={studentEmail} onChange={(e) => setStudentEmail(e.target.value)} className={`w-full border rounded-lg px-3 py-2 text-xs ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300'}`} />
+                              <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Akademik / Kurumsal E-Posta</label>
+                              <input 
+                                type="email" 
+                                value={studentEmail} 
+                                onChange={(e) => setStudentEmail(e.target.value)}
+                                placeholder="orn@okul.edu.tr veya k12.tr"
+                                className={`w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-pink-500 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300 text-slate-800'}`}
+                              />
                             </div>
                           </div>
+
+                          {/* Belge Gösterimi */}
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-400 uppercase mb-2">İlgi Alanları</label>
+                            <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Yüklenmiş Kimlik Doğrulama Belgesi</label>
+                            <div className="flex items-center space-x-2">
+                              <span className="text-[11px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-3 py-2 rounded-lg border border-emerald-500/20 font-mono flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                                Doğrulandı: {verificationFile}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* İlgi Alanları */}
+                          <div>
+                            <label className="block text-[11px] font-bold text-slate-400 uppercase mb-2">İlgi Alanları (STEM)</label>
                             <div className="flex flex-wrap gap-1.5">
                               {ILGI_ALANLARI.map(interest => (
-                                <button key={interest} type="button" onClick={() => handleInterestToggle(interest)} className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${selectedInterests.includes(interest) ? 'bg-pink-600 text-white' : 'bg-slate-100 dark:bg-slate-900 text-slate-500'}`}>{interest}</button>
+                                <button
+                                  key={interest}
+                                  type="button"
+                                  onClick={() => handleInterestToggle(interest)}
+                                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${selectedInterests.includes(interest) ? 'bg-pink-600 text-white' : 'bg-slate-100 dark:bg-slate-900 text-slate-500 hover:text-slate-700'}`}
+                                >
+                                  {interest}
+                                </button>
                               ))}
                             </div>
                           </div>
+
+                          {/* Yarışmalar & Dereceler */}
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Yarışmalar & Dereceler</label>
+                            <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Katıldığınız Yarışmalar & Dereceleriniz</label>
+                            <p className="text-[10px] text-slate-500 mb-2">Sistemimiz standart dışı veya doğrulanmamış veri girişini engeller.</p>
+                            
                             <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
                               {Object.entries(YARISMA_KATEGORILERI).map(([category, Contests]) => (
                                 <div key={category} className="space-y-1.5">
-                                  <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider block border-b pb-0.5">{category}</span>
+                                  <span className="text-[10px] font-bold text-indigo-500 dark:text-indigo-400 uppercase tracking-wider block border-b border-slate-200 dark:border-slate-800 pb-0.5">{category}</span>
+                                  
                                   {Contests.map(contest => {
                                     const matchedExp = selectedExperiences.find(e => e.name === contest);
                                     const isChecked = !!matchedExp;
+
                                     return (
-                                      <div key={contest} className="flex items-center justify-between gap-2 p-1">
-                                        <label className="flex items-center space-x-2 cursor-pointer text-xs"><input type="checkbox" checked={isChecked} onChange={() => handleExperienceToggle(contest)} className="rounded text-pink-600" /><span>{contest}</span></label>
+                                      <div key={contest} className={`p-2 rounded-lg border ${isChecked ? 'bg-pink-500/5 border-pink-200 dark:border-pink-900/40' : 'bg-transparent border-transparent'} flex flex-col sm:flex-row sm:items-center justify-between gap-2`}>
+                                        <label className="flex items-start space-x-2 cursor-pointer flex-1">
+                                          <input 
+                                            type="checkbox"
+                                            checked={isChecked}
+                                            onChange={() => handleExperienceToggle(contest)}
+                                            className="mt-0.5 rounded border-slate-300 dark:border-slate-800 text-pink-600 focus:ring-pink-500 bg-transparent"
+                                          />
+                                          <span className="text-slate-700 dark:text-slate-300 text-[11px] sm:text-xs leading-tight">{contest}</span>
+                                        </label>
+                                        
                                         {isChecked && (
-                                          <select value={matchedExp.rank} onChange={(e) => handleRankChange(contest, e.target.value)} className="text-[10px] border rounded bg-transparent">
-                                            {BASARI_DERECELERI.map(rank => <option key={rank} value={rank}>{rank}</option>)}
-                                          </select>
+                                          <div className="flex items-center space-x-1 shrink-0 pl-6 sm:pl-0">
+                                            <span className="text-[10px] text-slate-400">Derece:</span>
+                                            <select
+                                              value={matchedExp.rank}
+                                              onChange={(e) => handleRankChange(contest, e.target.value)}
+                                              className={`text-[10px] border rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-pink-500 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-300' : 'bg-white border-slate-300 text-slate-700'}`}
+                                            >
+                                              {BASARI_DERECELERI.map(rank => (
+                                                <option key={rank} value={rank}>{rank}</option>
+                                              ))}
+                                            </select>
+                                          </div>
                                         )}
                                       </div>
                                     );
@@ -733,218 +921,593 @@
                               ))}
                             </div>
                           </div>
+
                         </div>
                       </div>
+
+                      {/* Sağ Sütun: Güvenlik Ayarları & Önizleme */}
                       <div className="md:col-span-5 space-y-6">
+                        
                         <div className={`p-6 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'} space-y-4`}>
-                          <h3 className="text-sm font-bold border-b pb-2">🛡️ Güvenlik</h3>
-                          <label className="flex items-center justify-between cursor-pointer text-xs"><span className="text-slate-500">Profilimi Sadece Eşleşenlere Göster</span><input type="checkbox" checked={privateProfile} onChange={(e) => setPrivateProfile(e.target.checked)} className="text-pink-600" /></label>
+                          <h3 className={`text-sm font-bold ${theme === 'dark' ? 'text-slate-200' : 'text-slate-900'} border-b border-slate-200 dark:border-slate-800 pb-2`}>🛡️ Doğrulama ve Güvenlik</h3>
+                          
+                          <div className="space-y-4 text-xs">
+                            <div className="space-y-1">
+                              <label className="flex items-center justify-between cursor-pointer">
+                                <span className="text-slate-600 dark:text-slate-300 font-semibold">Profilimi Sadece Eşleşenlere Göster</span>
+                                <input 
+                                  type="checkbox" 
+                                  checked={privateProfile} 
+                                  onChange={(e) => setPrivateProfile(e.target.checked)}
+                                  className="rounded border-slate-300 text-pink-600 focus:ring-pink-500"
+                                />
+                              </label>
+                              <p className="text-[10px] text-slate-500">
+                                Aktif edilirse profiliniz aramalarda doğrudan listelenmez, sadece sistem algoritmasının önerdiği mentörler e-postanızı görebilir.
+                              </p>
+                            </div>
+
+                            <div className="p-3 bg-pink-500/5 rounded-xl border border-pink-500/10 text-[10px] text-pink-600 dark:text-pink-400 leading-relaxed">
+                              🔒 <strong>Profesyonel Ağ İletişimi:</strong> SİS platformunda doğrulanmış mentörlerimizin ve akranlarımızın akademik e-posta hesapları, eğitim projelerinde iş birliği, soru sorma ve ortak akademik yol haritası kurgulama amaçlı doğrudan erişilebilir durumdadır.
+                            </div>
+                          </div>
                         </div>
-                        <button onClick={handleRunAnalysis} disabled={isAnalyzing} className="w-full bg-pink-600 hover:bg-pink-500 text-white font-bold py-3.5 rounded-xl shadow-md text-xs uppercase tracking-wider transition-all flex items-center justify-center space-x-2">
-                          {isAnalyzing ? "Analiz Ediliyor..." : "SİS-AI İle Eşleşmeleri Bul & Rotaları Gör"}
-                        </button>
+
+                        {/* SİS-AI Optimizasyon Butonu */}
+                        <div className="space-y-3">
+                          <button
+                            onClick={handleRunAnalysis}
+                            disabled={isAnalyzing}
+                            className="w-full bg-pink-600 hover:bg-pink-500 text-white font-bold py-3.5 rounded-xl shadow-md text-xs tracking-wider uppercase disabled:opacity-50 transition-all flex items-center justify-center space-x-2"
+                          >
+                            {isAnalyzing ? "Yol Haritası Hesaplanıyor..." : "SİS-AI İle Eşleşmeleri Bul & Yol Haritamı Gör"}
+                          </button>
+                          <p className="text-[10px] text-slate-500 text-center font-medium">Değişiklikleri kaydedip analiz motorunu çalıştırdığınızda doğrudan Eşleşmeler sayfasına yönlendirilirsiniz.</p>
+                        </div>
+
                       </div>
+
                     </div>
+
                   </div>
                 )}
 
-                {/* 3. EŞLEŞMELER TAB */}
+                {/* 3. AKILLI EŞLEŞMELER SEKME */}
                 {activeTab === 'eslesme' && (
                   <div className="space-y-8 animate-fadeIn">
+                    
+                    <div className="max-w-3xl mx-auto text-center space-y-2">
+                      <h2 className={`text-2xl sm:text-3xl font-extrabold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>SİS-AI Akıllı Eşleşmelerim</h2>
+                      <p className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                        SİS Akademik Güven Ağı'na kayıtlı, akademik e-postaları doğrulanmış mentör ve akran listesi. Doğrudan mail atabilir veya oda üzerinden sohbet başlatabilirsiniz.
+                      </p>
+                    </div>
+
                     {analysisRan ? (
                       <div className="space-y-8">
-                        <div className={`p-6 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/40 border-indigo-950' : 'bg-indigo-50/50 border-indigo-200'} relative overflow-hidden`}>
-                          <h3 className="text-base font-bold mb-2 text-indigo-500">✨ Sayın {studentName}, Akademik Rotanız</h3>
+                        
+                        {/* Yol Haritası Kartı */}
+                        <div className={`p-6 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/40 border-indigo-950 text-slate-200' : 'bg-indigo-50/50 border-indigo-200 text-slate-800'} relative overflow-hidden`}>
+                          <div className="absolute top-0 right-0 bg-indigo-600 text-white text-[9px] font-extrabold px-3 py-1 rounded-bl-xl uppercase tracking-wider">SİS-AI ÖZEL STRATEJİ</div>
+                          <h3 className={`text-base font-bold mb-2 flex items-center gap-1.5 ${theme === 'dark' ? 'text-indigo-400' : 'text-indigo-900'}`}>
+                            <span>✨ Sayın {studentName}, Akademik Rotanız Belirlendi</span>
+                          </h3>
                           <p className="text-xs sm:text-sm leading-relaxed mb-4">{matchedRoadmap}</p>
+                          
+                          <div className="flex flex-wrap gap-2">
+                            {selectedInterests.map(i => (
+                              <span key={i} className="text-[10px] font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 px-3 py-1 rounded-md border border-indigo-200/40">
+                                {i} Odaklı
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                          {matchedMentors.map(mentor => (
-                            <div key={mentor.id} className={`p-5 rounded-2xl border flex flex-col justify-between ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-slate-200'}`}>
-                              <div>
-                                <div className="flex items-center justify-between mb-2"><span className="text-2xl">{mentor.avatar}</span><span className="text-[9px] font-bold bg-purple-100 text-purple-700 px-2 py-0.5 rounded">{mentor.role}</span></div>
-                                <h4 className="text-sm font-bold">{mentor.name}</h4>
-                                <span className="text-[10px] text-pink-500 font-semibold block">{mentor.institution}</span>
-                                <p className="text-xs text-slate-500 my-2 line-clamp-3">{mentor.bio}</p>
-                                <div className="my-2 text-[10px] bg-pink-500/5 p-2 rounded border border-pink-500/10 truncate">📬 {mentor.email}</div>
+
+                        {/* Eşleşen Kişiler Grid */}
+                        <div className="space-y-4">
+                          <h3 className={`text-sm font-bold uppercase tracking-wider ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Önerilen Akademik Destek Ağı (LinkedIn Görünümü)</h3>
+                          
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            
+                            {/* Mentörler */}
+                            {matchedMentors.map(mentor => (
+                              <div key={mentor.id} className={`p-5 rounded-2xl border flex flex-col justify-between ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800 hover:border-pink-500/20' : 'bg-white border-slate-200 hover:border-pink-200'} transition-all shadow-xs`}>
+                                <div>
+                                  <div className="flex items-center justify-between mb-3">
+                                    <span className="text-2xl">{mentor.avatar}</span>
+                                    <span className="text-[9px] font-bold uppercase tracking-wider bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 px-2.5 py-1 rounded-md">
+                                      {mentor.role}
+                                    </span>
+                                  </div>
+                                  
+                                  <h4 className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{mentor.name}</h4>
+                                  <span className="text-[10px] text-pink-600 dark:text-pink-400 font-semibold block mb-1">{mentor.institution}</span>
+                                  <span className="text-[10px] text-slate-400 block mb-2">{mentor.grade} • {mentor.city}</span>
+                                  <p className={`text-xs leading-relaxed mb-4 line-clamp-3 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{mentor.bio}</p>
+                                  
+                                  <div className="mb-4 p-2 rounded-lg bg-pink-500/5 border border-pink-500/10 flex items-center justify-between">
+                                    <span className="text-[10px] font-mono text-pink-600 dark:text-pink-400 truncate mr-2" title={mentor.email}>
+                                      📬 {mentor.email}
+                                    </span>
+                                    <button 
+                                      onClick={() => copyToClipboard(mentor.email)}
+                                      className="text-[9px] bg-pink-600/10 text-pink-600 px-1.5 py-0.5 rounded font-bold hover:bg-pink-600 hover:text-white transition-all shrink-0"
+                                    >
+                                      Kopyala
+                                    </button>
+                                  </div>
+
+                                  <div className="space-y-1.5 mb-4">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Kanıtlanmış Deneyimler:</span>
+                                    {mentor.experiences.map((exp, idx) => (
+                                      <span key={idx} className="text-[10px] bg-slate-100 dark:bg-slate-950 text-slate-600 dark:text-slate-300 px-2 py-1 rounded block truncate">
+                                        🏆 {exp.name} - <strong className="text-pink-500">{exp.rank}</strong>
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
+                                  <div className="flex justify-between items-center text-[10px]">
+                                    <span className="font-extrabold text-indigo-500 dark:text-indigo-400">Etki Skoru: {mentor.impactScore}</span>
+                                    <span className="text-slate-400">{mentor.supportedStudents} Öğrenciye Destek</span>
+                                  </div>
+                                  <div className="grid grid-cols-2 gap-2 mt-1">
+                                    <button 
+                                      onClick={() => setEmailModalUser(mentor)}
+                                      className="bg-transparent hover:bg-pink-500/10 text-pink-600 dark:text-pink-400 text-center border border-pink-500/20 text-[10px] font-bold py-2 rounded-lg transition-all flex items-center justify-center gap-1"
+                                    >
+                                      ✉️ E-posta At
+                                    </button>
+                                    <button
+                                      onClick={() => startChat(mentor)}
+                                      className="bg-pink-600 hover:bg-pink-500 text-white text-[10px] font-bold py-2 rounded-lg transition-all"
+                                    >
+                                      Güvenli Sohbet
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
-                              <div className="grid grid-cols-2 gap-2 mt-4 pt-2 border-t border-slate-100 dark:border-slate-800">
-                                <button onClick={() => setEmailModalUser(mentor)} className="text-[10px] font-bold border border-pink-500/20 text-pink-500 rounded-lg py-2">✉ E-posta</button>
-                                <button onClick={() => startChat(mentor)} className="text-[10px] font-bold bg-pink-600 text-white rounded-lg py-2">Sohbet</button>
+                            ))}
+
+                            {/* Akranlar */}
+                            {matchedPeers.map(peer => (
+                              <div key={peer.id} className={`p-5 rounded-2xl border flex flex-col justify-between ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-slate-200'}`}>
+                                <div>
+                                  <div className="flex items-center justify-between mb-3">
+                                    <span className="text-2xl">{peer.avatar}</span>
+                                    <span className="text-[9px] font-bold uppercase tracking-wider bg-pink-100 dark:bg-pink-950 text-pink-700 dark:text-pink-300 px-2.5 py-1 rounded-md">
+                                      {peer.role}
+                                    </span>
+                                  </div>
+                                  
+                                  <h4 className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{peer.name}</h4>
+                                  <span className="text-[10px] text-pink-600 dark:text-pink-400 font-semibold block mb-1">{peer.institution}</span>
+                                  <span className="text-[10px] text-slate-400 block mb-2">{peer.grade} • {peer.city}</span>
+                                  <p className={`text-xs leading-relaxed mb-4 line-clamp-3 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{peer.bio}</p>
+                                  
+                                  <div className="mb-4 p-2 rounded-lg bg-pink-500/5 border border-pink-500/10 flex items-center justify-between">
+                                    <span className="text-[10px] font-mono text-pink-600 dark:text-pink-400 truncate mr-2" title={peer.email}>
+                                      📬 {peer.email}
+                                    </span>
+                                    <button 
+                                      onClick={() => copyToClipboard(peer.email)}
+                                      className="text-[9px] bg-pink-600/10 text-pink-600 px-1.5 py-0.5 rounded font-bold hover:bg-pink-600 transition-all shrink-0"
+                                    >
+                                      Kopyala
+                                    </button>
+                                  </div>
+
+                                  <div className="space-y-1.5 mb-4">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">İlgi Duyduğu Alanlar:</span>
+                                    <div className="flex flex-wrap gap-1">
+                                      {peer.interests.map(i => (
+                                        <span key={i} className="text-[9px] bg-slate-100 dark:bg-slate-950 text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded">
+                                          {i}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
+                                  <span className="text-[10px] font-extrabold text-pink-500 dark:text-pink-400">Proje Ortaklığı Adayı</span>
+                                  <div className="grid grid-cols-2 gap-2">
+                                    <button 
+                                      onClick={() => setEmailModalUser(peer)}
+                                      className="bg-transparent hover:bg-pink-500/10 text-pink-600 dark:text-pink-400 text-center border border-pink-500/20 text-[10px] font-bold py-2 rounded-lg transition-all flex items-center justify-center gap-1"
+                                    >
+                                      ✉️ Mail At
+                                    </button>
+                                    <button
+                                      onClick={() => startChat(peer)}
+                                      className="bg-pink-600 hover:bg-pink-500 text-white text-[10px] font-bold py-2 rounded-lg transition-all"
+                                    >
+                                      Sohbet Başlat
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+
+                          </div>
                         </div>
+
                       </div>
                     ) : (
-                      <div className="text-center py-12"><p className="text-slate-500 mb-4">Lütfen önce SİS Profilim sekmesinden analiz motorunu çalıştırın.</p><button onClick={() => setActiveTab('simulator')} className="bg-pink-600 text-white text-xs px-4 py-2 rounded-lg">Profil Sayfasına Git</button></div>
+                      <div className={`p-12 text-center rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-slate-200'} max-w-2xl mx-auto space-y-4`}>
+                        <span className="text-4xl">👥</span>
+                        <h3 className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>Akıllı Eşleşme Verisi Yok</h3>
+                        <p className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                          Öncelikle "SİS Profilim" sekmesinden e-posta adresinizi, ilgi alanlarınızı ve başarılarınızı kaydedip "SİS-AI İle Eşleşmeleri Bul" butonuna basmalısınız.
+                        </p>
+                        <button
+                          onClick={() => setActiveTab('simulator')}
+                          className="bg-pink-600 hover:bg-pink-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-all"
+                        >
+                          Profil Sayfasına Git
+                        </button>
+                      </div>
                     )}
+
                   </div>
                 )}
 
-                {/* 4. RADAR TAB */}
+                {/* 4. SİS-AI FIRSAT RADARI SEKME */}
                 {activeTab === 'radar' && (
                   <div className="space-y-8 animate-fadeIn">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {filteredRadarOpportunities.map(opp => (
-                        <div key={opp.id} className={`p-6 rounded-2xl border flex flex-col justify-between ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-slate-200'}`}>
-                          <div>
-                            <span className="text-[9px] bg-pink-100 text-pink-700 px-2.5 py-1 rounded font-bold">{opp.category}</span>
-                            <h3 className="text-base font-bold my-2">{opp.title}</h3>
-                            <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">{opp.desc}</p>
-                          </div>
-                          <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between">
-                            <div><span className="text-[9px] text-slate-400 block">Son Başvuru</span><strong className="text-xs text-rose-500">{opp.deadline}</strong></div>
-                            <button onClick={() => { setSelectedOpportunityModal(opp); completeTask("task_view_radar", 20); }} className="bg-pink-600 text-white text-xs px-4 py-2 rounded-lg font-semibold">Detayları Gör</button>
-                          </div>
-                        </div>
-                      ))}
+                    
+                    <div className="max-w-3xl mx-auto text-center space-y-2">
+                      <h2 className={`text-2xl sm:text-3xl font-extrabold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>SİS-AI Fırsat Radarı</h2>
+                      <p className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                        Yapay zekâ tarayıcımız tarafından taranan, onaylanan ve kullanıcı profiline göre kişiselleştirilen prestijli ulusal/uluslararası bilimsel süreçler.
+                      </p>
                     </div>
+
+                    {analysisRan && (
+                      <div className={`p-4 rounded-xl border ${theme === 'dark' ? 'bg-slate-900/40 border-pink-900/40 text-pink-300' : 'bg-pink-50 text-pink-800 border-pink-200'} text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3`}>
+                        <div>
+                          🚀 <strong>SİS-AI Özel Önerisi:</strong> {studentGrade} seviyesinde {selectedInterests.join(' ve ')} alanlarına ilgilisiniz. Sizin için en ideal süreç <strong>Samsung Solve for Tomorrow</strong> ve <strong>TÜBİTAK 2204-A</strong> olarak belirlendi.
+                        </div>
+                        <span className="text-[10px] bg-pink-500/10 text-pink-600 dark:text-pink-400 px-2 py-1 rounded font-bold shrink-0 text-center">Profil Uyum Filtresi Aktif</span>
+                      </div>
+                    )}
+
+                    {/* Fırsat Kategori Filtreleri */}
+                    <div className={`p-2 rounded-xl border flex flex-wrap gap-1 justify-center ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-slate-200'}`}>
+                      <button 
+                        onClick={() => setSelectedRadarCategory('all')}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${selectedRadarCategory === 'all' ? 'bg-pink-600 text-white' : 'text-slate-500 hover:text-slate-700'}`}
+                      >
+                        Tüm Fırsatlar
+                      </button>
+                      <button 
+                        onClick={() => setSelectedRadarCategory('Araştırma Projeleri')}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${selectedRadarCategory === 'Araştırma Projeleri' ? 'bg-pink-600 text-white' : 'text-slate-500 hover:text-slate-700'}`}
+                      >
+                        Araştırma Projeleri
+                      </button>
+                      <button 
+                        onClick={() => setSelectedRadarCategory('Teknoloji ve Mühendislik')}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${selectedRadarCategory === 'Teknoloji ve Mühendislik' ? 'bg-pink-600 text-white text-xs' : 'text-slate-500 hover:text-slate-700'}`}
+                      >
+                        Teknoloji ve Mühendislik
+                      </button>
+                      <button 
+                        onClick={() => setSelectedRadarCategory('Olimpiyatlar ve Akademik Yarışmalar')}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${selectedRadarCategory === 'Olimpiyatlar ve Akademik Yarışmalar' ? 'bg-pink-600 text-white' : 'text-slate-500 hover:text-slate-700'}`}
+                      >
+                        Olimpiyatlar & Akademik
+                      </button>
+                    </div>
+
+                    {/* Fırsat Akışı Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {filteredRadarOpportunities.map(opp => {
+                        const score = getSuitabilityScore(opp);
+                        return (
+                          <div 
+                            key={opp.id} 
+                            className={`p-6 rounded-2xl border flex flex-col justify-between space-y-4 hover:shadow-sm transition-all ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800 hover:border-slate-700' : 'bg-white border-slate-200 hover:border-slate-300'}`}
+                          >
+                            <div className="space-y-3">
+                              <div className="flex items-center justify-between gap-2 flex-wrap">
+                                <span className="text-[10px] bg-pink-500/10 text-pink-600 dark:text-pink-400 px-2.5 py-1 rounded-md font-semibold border border-pink-500/20">
+                                  {opp.category}
+                                </span>
+                                <div className="flex items-center space-x-1.5">
+                                  <span className="text-[10px] text-slate-400">Uygunluk Skoru:</span>
+                                  <span className={`text-xs font-extrabold px-2 py-0.5 rounded ${score > 80 ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400'}`}>
+                                    %{score}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <h3 className={`text-base font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{opp.title}</h3>
+                              <p className={`text-xs leading-relaxed line-clamp-3 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{opp.desc}</p>
+                              
+                              <div className="flex flex-wrap gap-1">
+                                {opp.matchKeywords.map(key => (
+                                  <span key={key} className="text-[9px] bg-slate-100 dark:bg-slate-950 text-slate-500 px-2 py-0.5 rounded">
+                                    #{key}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2 flex-wrap">
+                              <div>
+                                <span className="text-[9px] text-slate-400 block">Son Başvuru</span>
+                                <strong className="text-xs text-rose-500 dark:text-rose-400">{opp.deadline}</strong>
+                              </div>
+                              <button 
+                                onClick={() => {
+                                  setSelectedOpportunityModal(opp);
+                                  completeTask("task_view_radar", 20);
+                                }}
+                                className="bg-pink-600 hover:bg-pink-500 text-white text-xs font-semibold px-4.5 py-2 rounded-lg transition-all"
+                              >
+                                Detay & Başvuru Rehberi
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
                   </div>
                 )}
 
-                {/* 5. TAKIM TAB */}
+                {/* 5. TAKIM KURUCU SEKME */}
                 {activeTab === 'takim' && (
                   <div className="space-y-8 animate-fadeIn">
+                    
+                    <div className="max-w-3xl mx-auto text-center space-y-2">
+                      <h2 className={`text-2xl sm:text-3xl font-extrabold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>SİS Takım Kurucu Tahtası</h2>
+                      <p className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                        TÜBİTAK, Teknofest veya Solve for Tomorrow gibi süreçlerde proje fikirlerinizi hayata geçirmek için yetenek ve disiplin odaklı takım arkadaşları bulun.
+                      </p>
+                    </div>
+
+                    {/* İlan Paneli */}
                     <form onSubmit={handlePublishTeam} className={`p-6 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-slate-200'} max-w-2xl mx-auto space-y-4`}>
-                      <h3 className="text-sm font-bold">Takım Arkadaşı İlanı Paylaş</h3>
+                      <h3 className={`text-sm font-bold ${theme === 'dark' ? 'text-slate-200' : 'text-slate-900'}`}>Takım Arkadaşı İlanı Paylaş</h3>
+                      
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                        <input type="text" value={newProjName} onChange={(e) => setNewProjName(e.target.value)} placeholder="Proje Adı" className={`border rounded-lg p-2 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white'}`} />
-                        <input type="text" value={newProjContest} onChange={(e) => setNewProjContest(e.target.value)} placeholder="Hedef Yarışma" className={`border rounded-lg p-2 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white'}`} />
+                        <div className="space-y-1">
+                          <label className="text-[10px] text-slate-400 uppercase font-bold">Proje Adı</label>
+                          <input 
+                            type="text" 
+                            value={newProjName}
+                            onChange={(e) => setNewProjName(e.target.value)}
+                            placeholder="Örn: Akıllı Atık Yönetim Otonomu" 
+                            className={`w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-pink-500 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300'}`}
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] text-slate-400 uppercase font-bold">Hedef Yarışma / Süreç</label>
+                          <input 
+                            type="text" 
+                            value={newProjContest}
+                            onChange={(e) => setNewProjContest(e.target.value)}
+                            placeholder="Örn: Samsung Solve for Tomorrow" 
+                            className={`w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-pink-500 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300'}`}
+                          />
+                        </div>
                       </div>
-                      <input type="text" value={newProjRoles} onChange={(e) => setNewProjRoles(e.target.value)} placeholder="Aranan Roller (virgülle ayırın)" className={`w-full border rounded-lg p-2 text-xs ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white'}`} />
-                      <textarea value={newProjDesc} onChange={(e) => setNewProjDesc(e.target.value)} placeholder="Proje Kısa Açıklaması..." rows="2" className={`w-full border rounded-lg p-2 text-xs ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white'}`}></textarea>
-                      {teamFormError && <p className="text-xs text-rose-500">{teamFormError}</p>}
-                      {teamFormSuccess && <p className="text-xs text-emerald-500">🎉 İlan başarıyla panoya eklendi!</p>}
-                      <button type="submit" className="bg-pink-600 text-white text-xs font-bold px-4 py-2 rounded-lg float-right">Yayınla</button>
-                      <div className="clear-both"></div>
+
+                      <div className="space-y-1">
+                        <label className="text-[10px] text-slate-400 uppercase font-bold">Aranan Roller (Virgülle ayırın)</label>
+                        <input 
+                          type="text" 
+                          value={newProjRoles}
+                          onChange={(e) => setNewProjRoles(e.target.value)}
+                          placeholder="Örn: Python Geliştirici, Rapor Yazarı, Tasarımcı" 
+                          className={`w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-pink-500 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300'}`}
+                        />
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-[10px] text-slate-400 uppercase font-bold">Kısa Açıklama ve Detaylar</label>
+                        <textarea 
+                          value={newProjDesc}
+                          onChange={(e) => setNewProjDesc(e.target.value)}
+                          placeholder="Projenizin sürdürülebilirlik veya sosyal fayda boyutundan, ekibinizin şu anki durumundan kısaca bahsedin."
+                          rows="3"
+                          className={`w-full border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-pink-500 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300'}`}
+                        ></textarea>
+                      </div>
+
+                      {teamFormError && <p className="text-xs text-rose-500 font-medium">{teamFormError}</p>}
+                      {teamFormSuccess && <p className="text-xs text-emerald-500 font-semibold">🎉 Takım İlanınız Başarıyla SİS Tahtasında Yayınlandı!</p>}
+
+                      <div className="flex justify-between items-center pt-2">
+                        <span className="text-[10px] text-emerald-500">✓ Sadece e-Devlet doğrulamalı öğrenciler başvurabilir</span>
+                        <button 
+                          type="submit"
+                          className="bg-pink-600 hover:bg-pink-500 text-white text-xs font-semibold px-4.5 py-2.5 rounded-lg transition-all"
+                        >
+                          Tahtada Yayınla
+                        </button>
+                      </div>
                     </form>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      {takimlar.map(team => (
-                        <div key={team.id} className={`p-5 rounded-2xl border flex flex-col justify-between ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-slate-200'}`}>
-                          <div>
-                            <span className="text-[9px] bg-pink-100 text-pink-700 font-bold px-2 py-0.5 rounded">{team.contest}</span>
-                            <h4 className="text-sm font-bold my-1">{team.projectName}</h4>
-                            <p className="text-xs text-slate-500 line-clamp-2">{team.description}</p>
-                          </div>
-                          <button onClick={() => setSelectedTeam(team)} className="mt-4 text-xs font-bold w-full py-2 bg-slate-100 dark:bg-slate-900 rounded-lg text-center">İncele & Başvur</button>
-                        </div>
-                      ))}
+                    {/* Aktif İlanlar */}
+                    <div className="space-y-3">
+                      <h3 className={`text-xs font-bold uppercase tracking-wider ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Aktif Takım İlanları</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {takimlar.map(team => {
+                          const applied = appliedTeamIds.includes(team.id);
+                          return (
+                            <div 
+                              key={team.id} 
+                              className={`p-5 rounded-2xl border flex flex-col justify-between space-y-4 transition-all ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800 hover:border-pink-900/40' : 'bg-white border-slate-200 hover:border-pink-200'}`}
+                            >
+                              <div className="space-y-2">
+                                <div className="flex justify-between items-center flex-wrap gap-1">
+                                  <span className="text-[9px] bg-pink-100 dark:bg-pink-950 text-pink-700 dark:text-pink-300 px-2 py-0.5 rounded font-bold">
+                                    {team.contest}
+                                  </span>
+                                  <span className={`text-[10px] font-semibold ${applied ? 'text-emerald-500' : 'text-slate-400'}`}>
+                                    {applied ? "Başvuruldu ✓" : team.status}
+                                  </span>
+                                </div>
+
+                                <h4 className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{team.projectName}</h4>
+                                <span className="text-[10px] text-slate-400 block">Başlatan: {team.creator}</span>
+                                <p className={`text-xs leading-relaxed line-clamp-2 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{team.description}</p>
+                                
+                                <div className="space-y-1 pt-2">
+                                  <span className="text-[10px] font-bold text-slate-400 block uppercase">Aranan Roller:</span>
+                                  <div className="flex flex-wrap gap-1">
+                                    {team.neededRoles.map(role => (
+                                      <span key={role} className="text-[9px] bg-rose-500/10 text-rose-600 dark:text-rose-400 px-2 py-0.5 rounded font-semibold">
+                                        {role}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
+                                <span className="text-[9px] text-slate-400 font-semibold">Aktif İletişim</span>
+                                <button 
+                                  onClick={() => setSelectedTeam(team)}
+                                  className={`text-[10px] font-bold px-3.5 py-2 rounded-md border transition-all ${applied ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:bg-pink-600 hover:text-white'}`}
+                                >
+                                  {applied ? "Detayları Gör ✓" : "İncele & Başvur"}
+                                </button>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
+
                   </div>
                 )}
 
-                {/* 6. SOHBET TAB */}
+                {/* 6. GÜVENLİ SOHBET SEKME */}
                 {activeTab === 'sohbet' && (
-                  <div className="max-w-3xl mx-auto animate-fadeIn">
+                  <div className="max-w-3xl mx-auto space-y-6 animate-fadeIn">
                     {chatPartner ? (
-                      <div className={`rounded-2xl border flex flex-col h-[480px] overflow-hidden ${theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'}`}>
-                        <div className="p-4 border-b flex items-center justify-between bg-slate-50 dark:bg-slate-950">
-                          <h4 className="text-sm font-bold">{chatPartner.name} ile Sohbet Odası</h4>
+                      <div className={`rounded-2xl border flex flex-col h-[520px] overflow-hidden ${theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'}`}>
+                        
+                        <div className={`p-4 border-b flex items-center justify-between ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-slate-100 border-slate-200'}`}>
+                          <div className="flex items-center space-x-3">
+                            <span className="text-2xl">{chatPartner.avatar || '👩‍🔬'}</span>
+                            <div>
+                              <h4 className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'} flex items-center`}>
+                                {chatPartner.name || 'SİS Üyesi'}
+                                <span className="ml-2 w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                              </h4>
+                              <p className="text-[10px] text-slate-400">{chatPartner.grade || 'Doğrulanmış Üye'} • SİS Doğrulanmış Akademik Profil</p>
+                            </div>
+                          </div>
+                          <button 
+                            onClick={() => setActiveTab('eslesme')}
+                            className={`text-xs px-2.5 py-1.5 rounded-lg border ${theme === 'dark' ? 'bg-slate-800 border-slate-700 text-slate-300' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100'}`}
+                          >
+                            &larr; Eşleşmelere Dön
+                          </button>
                         </div>
-                        <div className="flex-1 p-4 overflow-y-auto space-y-3">
-                          {messages.map((msg, idx) => (
-                            <div key={idx} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                              <div className={`p-3 rounded-xl text-xs max-w-md ${msg.sender === 'user' ? 'bg-pink-600 text-white' : 'bg-slate-100 dark:bg-slate-800'}`}>{msg.text}</div>
+
+                        <div className="p-2 text-center bg-pink-500/5 text-[11px] text-pink-600 dark:text-pink-400 border-b border-pink-500/10">
+                          🛡️ SİS Güvenli İletişim Filtresi Aktif. Güvenliğiniz için kişisel iletişim verileri paylaşılması sistemce maskelenir.
+                        </div>
+
+                        <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-transparent">
+                          {messages && messages.map((msg, index) => (
+                            <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+                              <div className={`max-w-md p-3 rounded-xl text-xs sm:text-sm ${msg.sender === 'user' ? 'bg-pink-600 text-white rounded-tr-none' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-tl-none'}`}>
+                                {msg.text}
+                              </div>
                             </div>
                           ))}
-                          {chatWarning && <div className="p-2 bg-rose-500/10 text-rose-500 text-xs rounded">{chatWarning}</div>}
+
+                          {chatWarning && (
+                            <div className="p-3 bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/20 rounded-lg text-xs">
+                              {chatWarning}
+                            </div>
+                          )}
                         </div>
-                        <form onSubmit={handleSendMessage} className="p-4 border-t flex space-x-2">
-                          <input type="text" value={currentMessage} onChange={(e) => setCurrentMessage(e.target.value)} placeholder="Akademik sorunuzu yazın..." className="flex-1 border rounded-lg p-2 text-xs bg-transparent" />
-                          <button type="submit" className="bg-pink-600 text-white text-xs px-4 py-2 rounded-lg">Gönder</button>
+
+                        <form onSubmit={handleSendMessage} className={`p-4 border-t flex items-center space-x-2 ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+                          <input 
+                            type="text" 
+                            placeholder="Akademik sorunuzu yazın... (Örn: Projenizde hangi literatür taramasını yaptınız?)" 
+                            value={currentMessage}
+                            onChange={(e) => setCurrentMessage(e.target.value)}
+                            className={`flex-1 border rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:ring-1 focus:ring-pink-500 ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-200' : 'bg-white border-slate-300'}`}
+                          />
+                          <button 
+                            type="submit"
+                            className="bg-pink-600 hover:bg-pink-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs shrink-0 transition-all"
+                          >
+                            Gönder
+                          </button>
                         </form>
+
                       </div>
                     ) : (
-                      <div className="text-center py-12 text-slate-400">Sohbet odası boş. Lütfen Eşleşmeler alanından bir mentör seçin.</div>
+                      <div className={`p-12 text-center rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-slate-200'} space-y-4`}>
+                        <span className="text-4xl">💬</span>
+                        <h3 className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>Sohbet Odası Boş</h3>
+                        <p className="text-xs text-slate-400">Sohbet başlatmak için Akıllı Eşleşmeler sekmesinden bir mentör seçiniz.</p>
+                      </div>
                     )}
                   </div>
                 )}
 
-                {/* 7. ETKİ TAB */}
+                {/* 7. SİS ETKİ PROFİLİ SEKME */}
                 {activeTab === 'etki' && (
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-8 animate-fadeIn">
-                    <div className={`md:col-span-4 p-6 rounded-2xl border text-center ${theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'}`}>
-                      <span className="text-xs uppercase tracking-wider font-bold text-pink-500">Etki Skorunuz</span>
-                      <div className="text-4xl font-black text-pink-600 my-2">{userPoints} Puan</div>
-                      <p className="text-xs text-slate-500">Mevcut Durum: Akademik SİS Yolcusu</p>
+                  <div className="space-y-8 animate-fadeIn">
+                    
+                    <div className="max-w-3xl mx-auto text-center space-y-2">
+                      <h2 className={`text-2xl sm:text-3xl font-extrabold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>SİS Etki Profili & Liderlik</h2>
+                      <p className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                        Bilimsel dayanışmaya ve akran mentörlüğüne katkılarınızı sayısallaştıran yeni nesil etki paneli.
+                      </p>
                     </div>
-                    <div className={`md:col-span-8 p-6 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'} space-y-3`}>
-                      <h3 className="text-sm font-bold">Liderlik ve Katkı Sıralaması</h3>
-                      {MOCK_TOPLULUK.sort((a,b)=> b.impactScore - a.impactScore).slice(0,4).map((user, i)=>(
-                        <div key={user.id} className="flex justify-between items-center text-xs p-2 border-b dark:border-slate-800">
-                          <span>{i+1}. {user.avatar} {user.name}</span>
-                          <strong className="text-pink-500">{user.impactScore} Puan</strong>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                      
+                      {/* Sol Sütun: Karne */}
+                      <div className={`lg:col-span-5 p-6 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'} space-y-6`}>
+                        
+                        <div className="text-center p-6 rounded-xl bg-pink-500/5 border border-pink-500/10 space-y-2">
+                          <span className="text-[10px] uppercase tracking-widest font-extrabold text-pink-600 block">Mevcut Etki Skorunuz</span>
+                          <div className="text-4xl font-black text-pink-600">{userPoints} Puan</div>
+                          <span className="text-xs text-slate-400 block">Seviye: <strong>SİS Akademik Yolcusu</strong></span>
+                          
+                          <div className="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full mt-3 overflow-hidden">
+                            <div 
+                              className="bg-pink-600 h-full rounded-full transition-all duration-500" 
+                              style={{ width: `${Math.min((userPoints / 300) * 100, 100)}%` }}
+                            ></div>
+                          </div>
+                          <div className="flex justify-between text-[10px] text-slate-400 pt-1">
+                            <span>Gelişim: {Math.round(Math.min((userPoints / 300) * 100, 100))}%</span>
+                            <span>Hedef: 300 Puan</span>
+                          </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
 
-              </main>
+                        {/* Görevler */}
+                        <div className="space-y-3">
+                          <h3 className={`text-xs font-bold uppercase tracking-wider ${theme === 'dark' ? 'text-slate-200' : 'text-slate-900'}`}>Akademik SİS Görevlerim</h3>
+                          <div className="space-y-2.5 text-xs">
+                            
+                            <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-100/50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-900">
+                              <div className="flex items-center space-x-2.5">
+                                <span className="text-emerald-500">✓</span>
+                                <div>
+                                  <p className="font-semibold text-slate-700 dark:text-slate-300">Öğrenci Doğrulama</p>
+                                  <p className="text-[10px] text-slate-400">e-Devlet belgesi başarıyla doğrulandı.</p>
+                                </div>
+                              </div>
+                              <span className="text-[10px] font-bold text-emerald-500">+50 Puan</span>
+                            </div>
 
-              {/* MODALLAR */}
-              {emailModalUser && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-                  <div className={`w-full max-w-md rounded-xl p-6 ${theme === 'dark' ? 'bg-slate-900 text-white' : 'bg-white text-slate-800'}`}>
-                    <h3 className="text-sm font-bold mb-4">📧 Akademik İletişim Bilgisi</h3>
-                    <p className="text-xs mb-2"><strong>{emailModalUser.name}</strong> adlı kullanıcının doğrulanmış mail adresi:</p>
-                    <div className="p-3 bg-slate-100 dark:bg-slate-950 rounded font-mono text-xs text-center select-all text-pink-500 tracking-wide mb-4">{emailModalUser.email}</div>
-                    <div className="flex space-x-2 justify-end">
-                      <button onClick={() => { copyToClipboard(emailModalUser.email); }} className="bg-pink-600 text-white text-xs px-3 py-1.5 rounded">{copyStatus ? 'Kopyalandı!' : 'Kopyala'}</button>
-                      <button onClick={() => setEmailModalUser(null)} className="border text-xs px-3 py-1.5 rounded">Kapat</button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {selectedOpportunityModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-                  <div className={`w-full max-w-xl rounded-xl p-6 max-h-[85vh] overflow-y-auto ${theme === 'dark' ? 'bg-slate-900 text-white' : 'bg-white text-slate-800'}`}>
-                    <h3 className="text-base font-bold text-pink-500">{selectedOpportunityModal.title}</h3>
-                    <p className="text-xs my-3 text-slate-400 leading-relaxed">{selectedOpportunityModal.desc}</p>
-                    <div className="space-y-2 text-xs bg-slate-50 dark:bg-slate-950 p-3 rounded-lg">
-                      <p><strong>Başvuru Şartları:</strong> {selectedOpportunityModal.conditions}</p>
-                      <p><strong>Gerekli Belgeler:</strong> {selectedOpportunityModal.documents}</p>
-                      <p><strong>Ödüller / Kazanımlar:</strong> {selectedOpportunityModal.awards}</p>
-                    </div>
-                    <div className="mt-4 flex justify-end space-x-2">
-                      <a href={selectedOpportunityModal.link} target="_blank" rel="noreferrer" className="bg-pink-600 text-white text-xs px-4 py-2 rounded-lg">Resmi Sayfa ↗</a>
-                      <button onClick={() => setSelectedOpportunityModal(null)} className="border text-xs px-4 py-2 rounded-lg">Kapat</button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {selectedTeam && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-                  <div className={`w-full max-w-md rounded-xl p-6 ${theme === 'dark' ? 'bg-slate-900 text-white' : 'bg-white'}`}>
-                    <h3 className="text-base font-bold text-pink-500">{selectedTeam.projectName}</h3>
-                    <p className="text-xs my-2 text-slate-400">Hedef: {selectedTeam.contest}</p>
-                    <p className="text-xs leading-relaxed my-3">{selectedTeam.description}</p>
-                    <div className="text-xs bg-slate-50 dark:bg-slate-950 p-3 rounded mb-4"><strong>Detaylar:</strong> {selectedTeam.details}</div>
-                    {justAppliedSuccess && <p className="text-xs text-emerald-500 font-bold mb-2">✓ Başvuru talebi kurucuya iletildi!</p>}
-                    <div className="flex justify-end space-x-2">
-                      <button onClick={() => handleApplyToTeamAction(selectedTeam.id)} disabled={appliedTeamIds.includes(selectedTeam.id)} className="bg-pink-600 text-white text-xs px-4 py-2 rounded-lg">{appliedTeamIds.includes(selectedTeam.id) ? "Başvuruldu" : "Takıma Katılma İsteği Gönder"}</button>
-                      <button onClick={() => { setSelectedTeam(null); setJustAppliedSuccess(false); }} className="border text-xs px-4 py-2 rounded-lg">Kapat</button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* FOOTER */}
-              <footer className={`border-t mt-16 py-6 text-center text-xs ${theme === 'dark' ? 'bg-slate-950 border-slate-800 text-slate-500' : 'bg-white border-slate-200 text-slate-400'}`}>
-                <p className="font-bold text-slate-400">SistersInScience (SİS) Portal</p>
-                <p className="mt-1">© 2026 SİS Topluluğu • Samsung Solve for Tomorrow Sürdürülebilirlik Girişimi</p>
-              </footer>
-
-            </div>
-          );
-        }
-
-        // Uygulamayı DOM ağacına yerleştiriyoruz
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
-</body>
-</html>
+                            <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-100/50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-900">
+                              <div className="flex items-center space-x-2.5">
+                                <span
